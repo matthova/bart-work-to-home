@@ -32,7 +32,9 @@ class App extends Component {
 
     const etds = {};
     results.forEach((result) => {
-      etds[result.station] = result;
+      if (result != null) {
+        etds[result.station] = result;
+      }
     });
 
     this.setState({ etds });
@@ -41,14 +43,13 @@ class App extends Component {
   // Collect ETD info from a single station and return it as a JSON object
   async getStationETDs(station) {
     const stationUrl = `https://api.bart.gov/api/etd.aspx?cmd=etd&orig=${station}&key=MW9S-E7SL-26DU-VV8V&json=y`;
-    const reply = await request(stationUrl, { json: true })
-    .catch((err) => {
-      console.error(`Request error for "${station}"`, err);
+    try {
+      const reply = await request(stationUrl, { json: true })
+      reply.station = station;
+      return reply;
+    } catch(ex) {
       return null;
-    });
-
-    reply.station = station;
-    return reply;
+    }
   }
 
   componentWillMount() {
