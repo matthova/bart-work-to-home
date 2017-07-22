@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import request from 'request-promise';
 import bluebird from 'bluebird';
 
+import Station from './Station';
+
 class App extends Component {
   constructor() {
     super();
     this.state = {
       updater: null,
       etds: {
-        DELN: [],
-        EMBR: [],
+        DELN: null,
+        EMBR: null,
+        MONT: null,
       }
     };
   }
@@ -38,7 +41,12 @@ class App extends Component {
   // Collect ETD info from a single station and return it as a JSON object
   async getStationETDs(station) {
     const stationUrl = `https://api.bart.gov/api/etd.aspx?cmd=etd&orig=${station}&key=MW9S-E7SL-26DU-VV8V&json=y`;
-    const reply = JSON.parse(await request(stationUrl));
+    const reply = await request(stationUrl, { json: true })
+    .catch((err) => {
+      console.error(`Request error for "${station}"`, err);
+      return null;
+    });
+
     reply.station = station;
     return reply;
   }
@@ -50,8 +58,8 @@ class App extends Component {
   }
 
   renderStations() {
-    Object.entries(this.state.etds).map(([stationKey, stationObject]) => {
-
+    return Object.keys(this.state.etds).map(key => {
+      return this.state.etds[key] ? <Station key={key} station={this.state.etds[key]} /> : null
     });
   }
 
