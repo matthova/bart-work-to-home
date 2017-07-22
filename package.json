@@ -1,9 +1,11 @@
 {
-  "name": "bart-home",
+  "name": "bart-work-to-home",
   "version": "0.1.0",
+  "homepage": "https://matthova.github.io/bart-work-to-home",
   "private": true,
   "dependencies": {
     "bluebird": "^3.5.0",
+    "gh-pages": "^1.0.0",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
@@ -14,6 +16,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   }
 }
