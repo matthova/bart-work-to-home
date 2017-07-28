@@ -20,7 +20,7 @@ export default class Station extends Component {
   render() {
     return (
       <div className="station">
-        <h1>{this.props.station.station}</h1>
+        <h1 className="station-name">{this.props.station.station}</h1>
         {this.renderDestinations()}
       </div>
     );
