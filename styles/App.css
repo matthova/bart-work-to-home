@@ -1,0 +1,71 @@
+/* Prevent rubber-band scroll */
+html { height: 100%; width: 100%; overflow: hidden; }
+body { height: 100%; padding: 0; overflow: auto; margin: 0; -webkit-overflow-scrolling: touch; }
+/* End Prevent rubber-band scroll */
+
+
+h2 {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  word-break: break-word;
+}
+
+p {
+  font-size: 16px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: aqua;
+  padding: 5px;
+}
+
+.station {
+  display: flex;
+  flex-direction: column;
+  background-color: bisque;
+  padding: 5px;
+}
+
+.station-name {
+  display: flex;
+  justify-content: center;
+  background-color: cadetblue;
+  padding: 5px;
+}
+
+.destination {
+  display: flex;
+  flex-direction: row;
+  background-color: darkkhaki;
+  padding: 5px;
+}
+
+.destination-name {
+  background-color: firebrick;
+  width: 120px;
+  padding: 5px;
+}
+
+.train {
+   flex: 1;
+  background-color: greenyellow;
+  padding: 5px;
+}
+
+.train-name {
+  background-color: hotpink;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.train-length {
+  background-color: ivory;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}

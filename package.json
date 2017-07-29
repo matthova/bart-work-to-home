@@ -4,8 +4,10 @@
   "homepage": "https://matthova.github.io/bart-work-to-home/",
   "private": true,
   "dependencies": {
+    "autoprefixer": "^7.1.2",
     "bluebird": "^3.5.0",
     "gh-pages": "^1.0.0",
+    "postcss-cli": "^4.1.0",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
@@ -13,8 +15,10 @@
     "request-promise": "^4.2.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "dev-css": "node_modules/.bin/postcss -w styles/**/*.css --use autoprefixer -d src/",
+    "build-css": "node_modules/.bin/postcss styles/**/*.css --use autoprefixer -d src/",
+    "start": "npm run dev-css & react-scripts start",
+    "build": "npm run build-css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
