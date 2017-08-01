@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import request from "request-promise";
 import propTypes from "prop-types";
-import { Link } from "react-router-dom";
 
 import Destination from "./Destination";
 
