@@ -6,20 +6,36 @@ import { Link } from "react-router-dom";
 import Destination from "./Destination";
 
 export default class Station extends Component {
-  constructor() {
+  constructor(props) {
     super();
 
     this.state = {
       etds: [],
-      updater: null
+      updater: this.startUpdater(props.station.abbr)
     };
   }
 
+  startUpdater(abbr) {
+    this.getStationETDs(abbr);
+    return setInterval(() => {
+      this.getStationETDs(abbr);
+    }, 10000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.updater);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.station.abbr !== this.props.station.abbr) {
+      clearInterval(this.state.updater);
+      this.setState({ updater: this.startUpdater(nextProps.station.abbr) });
+    }
+  }
+
   renderDestinations() {
-    return null;
     try {
-      const destinations = this.props.station.root.station[0].etd;
-      return destinations.map((destination, i) => {
+      return this.state.etds.map((destination, i) => {
         return <Destination key={i} destination={destination} />;
       });
     } catch (ex) {
@@ -30,12 +46,13 @@ export default class Station extends Component {
   }
 
   // Collect ETD info from a single station and return it as a JSON object
-  async getStationETDs(station) {
-    const stationUrl = `https://api.bart.gov/api/etd.aspx?cmd=etd&orig=${station}&key=MW9S-E7SL-26DU-VV8V&json=y`;
+  async getStationETDs(abbr) {
+    const stationUrl = `https://api.bart.gov/api/etd.aspx?cmd=etd&orig=${abbr}&key=MW9S-E7SL-26DU-VV8V&json=y`;
     try {
       const reply = await request(stationUrl, { json: true });
-      reply.station = station;
-      return reply;
+      reply.abbr = abbr;
+      const etds = reply.root.station[0].etd;
+      this.setState({ etds });
     } catch (ex) {
       return null;
     }
@@ -44,7 +61,7 @@ export default class Station extends Component {
   render() {
     return (
       <div className="station">
-        <h1>
+        <h1 className="station-name">
           {this.props.station.name}
         </h1>
         {this.renderDestinations()}

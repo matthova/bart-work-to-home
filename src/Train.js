@@ -1,28 +1,32 @@
-import React, { Component } from 'react';
-import propTypes from 'prop-types';
+import React, { Component } from "react";
+import propTypes from "prop-types";
 
 export default class Train extends Component {
   // Handle edge cases of "Leaving" and "1 minute(s)"
-  renderMinutesString(string){
+  renderMinutesString(string) {
     // Handle "Leaving"
     if (Number.isNaN(Number(string))) {
-      return this.props.train.minutes;
+      return "Gone";
     }
 
     // Handle if minute(s) === 1
     if (Number(this.props.train.minutes) === 1) {
-      return `${this.props.train.minutes} minute`
+      return `${this.props.train.minutes} minute`;
     }
 
     // Otherwise just show "<n> minutes"
-    return `${this.props.train.minutes} minutes`;
+    return `${this.props.train.minutes} min`;
   }
 
   render() {
     return (
       <div className="train">
-        <p className="train-name">{this.renderMinutesString(this.props.train.minutes)}</p>
-        <p className="train-length">{this.props.train.length} cars</p>
+        <p className="train-name">
+          {this.renderMinutesString(this.props.train.minutes)}
+        </p>
+        <p className="train-length">
+          {this.props.train.length} cars
+        </p>
       </div>
     );
   }
@@ -30,4 +34,4 @@ export default class Train extends Component {
 
 Train.propTypes = {
   train: propTypes.object.isRequired
-}
+};

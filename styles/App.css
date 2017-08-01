@@ -34,7 +34,7 @@ p {
 }
 
 .selected-station {
-  flex: 1;
+  flex: 2;
 }
 
 .stations {
@@ -54,19 +54,26 @@ p {
   display: flex;
   flex-direction: row;
   background-color: darkkhaki;
-  padding: 5px;
+  margin: 5px;
+  justify-content: space-around;
 }
 
 .destination-name {
+  flex: 1;
   background-color: firebrick;
-  width: 120px;
-  padding: 5px;
+  margin: 5px;
+}
+
+.trains {
+  flex: 2;
 }
 
 .train {
   flex: 1;
+  display: flex;
+  justify-content: space-around;
   background-color: greenyellow;
-  padding: 5px;
+  margin: 5px;
 }
 
 .train-name {
