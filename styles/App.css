@@ -1,8 +1,18 @@
 /* Prevent rubber-band scroll */
-html { height: 100%; width: 100%; overflow: hidden; }
-body { height: 100%; padding: 0; overflow: auto; margin: 0; -webkit-overflow-scrolling: touch; }
-/* End Prevent rubber-band scroll */
+html {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
 
+body {
+  height: 100%;
+  padding: 0;
+  overflow: auto;
+  margin: 0;
+  -webkit-overflow-scrolling: touch;
+}
+/* End Prevent rubber-band scroll */
 
 h2 {
   font-size: 16px;
@@ -18,14 +28,17 @@ p {
 
 .container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   background-color: aqua;
   padding: 5px;
 }
 
-.station {
-  display: flex;
-  flex-direction: column;
+.selected-station {
+  flex: 1;
+}
+
+.stations {
+  flex: 1;
   background-color: bisque;
   padding: 5px;
 }
@@ -51,7 +64,7 @@ p {
 }
 
 .train {
-   flex: 1;
+  flex: 1;
   background-color: greenyellow;
   padding: 5px;
 }
