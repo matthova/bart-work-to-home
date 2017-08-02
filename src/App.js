@@ -7,6 +7,7 @@ import stations from "./stations.json";
 
 class App extends Component {
   constructor() {
+    debugger;
     super();
 
     this.stations = stations.root.stations.station;
