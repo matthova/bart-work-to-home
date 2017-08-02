@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { Route, Link, Switch } from "react-router-dom";
 
 import "./App.css";
 import Station from "./Station";
@@ -55,20 +55,16 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
-        <Route path={`${process.env.PUBLIC_URL}/`}>
-          <div className="App container">
-            <div className="stations">
-              <nav>
-                {this.renderStationList()}
-              </nav>
-            </div>
-            <div className="selected-station">
-              {this.renderSelectedStation()}
-            </div>
-          </div>
-        </Route>
-      </Router>
+      <div className="App container">
+        <div className="stations">
+          <nav>
+            {this.renderStationList()}
+          </nav>
+        </div>
+        <div className="selected-station">
+          {this.renderSelectedStation()}
+        </div>
+      </div>
     );
   }
 }
