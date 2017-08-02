@@ -56,16 +56,18 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div className="App container">
-          <div className="stations">
-            <nav>
-              {this.renderStationList()}
-            </nav>
+        <Route path={`${process.env.PUBLIC_URL}/`}>
+          <div className="App container">
+            <div className="stations">
+              <nav>
+                {this.renderStationList()}
+              </nav>
+            </div>
+            <div className="selected-station">
+              {this.renderSelectedStation()}
+            </div>
           </div>
-          <div className="selected-station">
-            {this.renderSelectedStation()}
-          </div>
-        </div>
+        </Route>
       </Router>
     );
   }
