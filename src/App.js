@@ -7,7 +7,6 @@ import stations from "./stations.json";
 
 class App extends Component {
   constructor() {
-    debugger;
     super();
 
     this.stations = stations.root.stations.station;
@@ -43,6 +42,7 @@ class App extends Component {
         <Route
           path="/:station"
           render={({ match }) => {
+            console.log(match);
             const station = this.stations.find(station => {
               return station.abbr === match.params.station;
             });
