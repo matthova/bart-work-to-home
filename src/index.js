@@ -6,7 +6,9 @@ import registerServiceWorker from "./registerServiceWorker";
 
 ReactDOM.render(
   <Router>
-    <App />
+    <Route path={process.env.PUBLIC_URL + "/"}>
+      <App />
+    </Route>
   </Router>,
   document.getElementById("root")
 );
