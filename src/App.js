@@ -39,17 +39,19 @@ class App extends Component {
   renderSelectedStation() {
     return (
       <Switch>
-        <Route
-          path="/:station"
-          render={({ match }) => {
-            console.log(match);
-            const station = this.stations.find(station => {
-              return station.abbr === match.params.station;
-            });
+        <Route path={process.env.PUBLIC_URL + "/"}>
+          <Route
+            path="/:station"
+            render={({ match }) => {
+              console.log(match);
+              const station = this.stations.find(station => {
+                return station.abbr === match.params.station;
+              });
 
-            return station ? <Station station={station} /> : null;
-          }}
-        />
+              return station ? <Station station={station} /> : null;
+            }}
+          />
+        </Route>
       </Switch>
     );
   }
