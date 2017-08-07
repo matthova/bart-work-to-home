@@ -42,10 +42,9 @@ class App extends Component {
         <Route path={process.env.PUBLIC_URL + "/"}>
           <Route
             path="/:station"
-            render={routeProps => {
-              console.log(routeProps);
+            render={({ location }) => {
               const station = this.stations.find(station => {
-                return station.abbr === routeProps.match.params.station;
+                return location.pathname.includes(station.abbr);
               });
 
               return station ? <Station station={station} /> : null;
