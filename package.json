@@ -1,7 +1,7 @@
 {
   "name": "bart-work-to-home",
   "version": "0.1.0",
-  "homepage": "https://matthova.github.io/bart-work-to-home",
+  "homepage": "https://matthova.github.io/bart-work-to-home/",
   "private": true,
   "dependencies": {
     "autobind": "^1.0.3",
