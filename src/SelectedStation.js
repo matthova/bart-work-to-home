@@ -4,7 +4,7 @@ import propTypes from "prop-types";
 
 import Destination from "./Destination";
 
-export default class Station extends Component {
+export default class SelectedStation extends Component {
   constructor(props) {
     super();
 
@@ -59,16 +59,18 @@ export default class Station extends Component {
 
   render() {
     return (
-      <div className="station">
-        <h1 className="station-name">
+      <div className="selected-station">
+        <h1 className="selected-station-name">
           {this.props.station.name}
         </h1>
-        {this.renderDestinations()}
+        <div className="destinations">
+          {this.renderDestinations()}
+        </div>
       </div>
     );
   }
 }
 
-Station.propTypes = {
+SelectedStation.propTypes = {
   station: propTypes.object.isRequired
 };

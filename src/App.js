@@ -1,19 +1,22 @@
 import React, { Component } from "react";
-import { Route, Link, Switch } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 import "./App.css";
-import Station from "./Station";
+import StationList from "./StationList";
+import SelectedStation from "./SelectedStation";
 import stations from "./stations.json";
+import distance from "gps-distance";
 
 class App extends Component {
   constructor() {
     super();
 
-    this.stations = stations.root.stations.station;
-
     this.state = {
-      position: null
+      position: null,
+      stations: stations.root.stations.station
     };
+
+    this.renderSelectedStation = this.renderSelectedStation.bind(this);
   }
 
   setLocation() {
@@ -26,46 +29,49 @@ class App extends Component {
     this.setLocation();
   }
 
-  renderStationList() {
-    return this.stations.map((station, i) => {
-      return (
-        <Link key={i} className="station-name" to={station.abbr}>
-          {station.name}
-        </Link>
-      );
+  renderSelectedStation({ location }) {
+    const station = this.state.stations.find(station => {
+      return location.pathname.includes(station.abbr);
     });
+
+    return station ? <SelectedStation station={station} /> : null;
   }
 
-  renderSelectedStation() {
-    return (
-      <Switch>
-        <Route path={process.env.PUBLIC_URL + "/"}>
-          <Route
-            path="/:station"
-            render={({ location }) => {
-              const station = this.stations.find(station => {
-                return location.pathname.includes(station.abbr);
-              });
+  componentWillUpdate(unknown, newState) {
+    // Would be better to check if object changes, rather than if object no longer null
+    if (this.state.position == null && newState.position != null) {
+      this.calculateDistanceToStations(newState.position);
+    }
+  }
 
-              return station ? <Station station={station} /> : null;
-            }}
-          />
-        </Route>
-      </Switch>
-    );
+  calculateDistanceToStations(position) {
+    const stations = Object.assign(this.state.stations);
+    stations.map(station => {
+      const distanceToStation = distance(
+        Number(station.gtfs_latitude),
+        Number(station.gtfs_longitude),
+        position.coords.latitude,
+        position.coords.longitude
+      );
+
+      station.distance = Number(distanceToStation).toFixed(1);
+    });
+
+    this.setState({ stations });
   }
 
   render() {
     return (
-      <div className="App container">
-        <div className="stations">
-          <nav>
-            {this.renderStationList()}
-          </nav>
-        </div>
-        <div className="selected-station">
-          {this.renderSelectedStation()}
-        </div>
+      <div className="App">
+        <StationList
+          stations={this.state.stations}
+          position={this.state.position}
+        />
+        <Switch>
+          <Route path={process.env.PUBLIC_URL + "/"}>
+            <Route path="/:station" render={this.renderSelectedStation} />
+          </Route>
+        </Switch>
       </div>
     );
   }

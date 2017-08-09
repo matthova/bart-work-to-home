@@ -1,91 +1,95 @@
 /* Prevent rubber-band scroll */
 html {
   height: 100%;
-  width: 100%;
+  margin: 0;
   overflow: hidden;
+  padding: 0;
+  width: 100%;
 }
 
 body {
   height: 100%;
-  padding: 0;
-  overflow: auto;
   margin: 0;
+  padding: 0;
+  overflow: hidden;
   -webkit-overflow-scrolling: touch;
 }
-/* End Prevent rubber-band scroll */
+/* End Prevent rubber-band scroll  */
 
-h2 {
-  font-size: 16px;
+.App {
+  height: 100VH;
+  overflow: hidden;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  word-break: break-word;
 }
 
-p {
-  font-size: 16px;
-}
-
-.container {
-  display: flex;
-  flex-direction: row;
-  background-color: aqua;
-  padding: 5px;
-}
-
-.selected-station {
-  flex: 2;
-}
-
-.stations {
+.App .station-list {
   flex: 1;
-  background-color: bisque;
-  padding: 5px;
+  overflow-y: scroll;
+  border: 2px solid teal;
+
+  display: flex;
+  flex-direction: column;
 }
 
-.station-name {
+/* Workaround to allow for 100VH to work on iphone */
+.App .station-list > * {
+  flex-shrink: 0;
+  flex-basis: auto;
+}
+
+.station-list .station-name {
+  border: 2px solid pink;
+  text-align: center;
+  padding: 0.5em;
+}
+
+.App .selected-station {
+  flex: 1;
+  border: 2px solid greenyellow;
+  overflow-wrap: break-word;
+  overflow-y: scroll;
+
   display: flex;
-  justify-content: center;
-  background-color: cadetblue;
-  padding: 5px;
+  flex-direction: column;
+}
+
+/* Workaround to allow for 100VH to work on iphone */
+.App .selected-station > * {
+  flex-shrink: 0;
+  flex-basis: auto;
+}
+
+.selected-station-name {
+  flex-basis: 100%;
+  flex-shrink: 1;
+  border: 2px solid hotpink;
+}
+
+/* Workaround to allow for 100VH to work on iphone */
+.App .selected-station > * {
+  flex-shrink: 0;
+  flex-basis: auto;
 }
 
 .destination {
-  display: flex;
-  flex-direction: row;
-  background-color: darkkhaki;
-  margin: 5px;
-  justify-content: space-around;
 }
 
 .destination-name {
-  flex: 1;
-  background-color: firebrick;
-  margin: 5px;
-}
-
-.trains {
-  flex: 2;
+  border: 2px solid silver;
 }
 
 .train {
+  display: flex;
+  border: 2px solid wheat;
+  padding: 0;
+}
+
+.train .train-name {
   flex: 1;
-  display: flex;
-  justify-content: space-around;
-  background-color: greenyellow;
-  margin: 5px;
+  border: 2px solid thistle;
 }
 
-.train-name {
-  background-color: hotpink;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-}
-
-.train-length {
-  background-color: ivory;
-  display: flex;
-  align-content: center;
-  justify-content: center;
+.train .train-length {
+  flex: 1;
+  border: 2px solid tomato;
 }
